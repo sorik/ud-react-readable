@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { createPost } from '../utils/api'
 
 class CreatePost extends Component {
   state = {
@@ -9,7 +10,13 @@ class CreatePost extends Component {
 
   create = (e) => {
     e.preventDefault()
-    
+
+    createPost({
+      "title": e.target.title.value,
+      "author": e.target.author.value,
+      "category": e.target.category.value,
+      "body": e.target.body.value
+    })
   }
 
   render() {
