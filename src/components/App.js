@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom'
 import { fetchCategories, fetchAllPosts } from '../utils/api'
 import { sortByVoteScore, sortByTimestamp } from '../utils/helpers'
+import CreatePost from './createPost'
 
 class App extends Component {
 
@@ -70,7 +71,7 @@ class App extends Component {
         </Route>
 
         <Route exact path='/create' render={() => (
-          <div>Hello</div>
+          <div><CreatePost category={categories}/></div>
         )}>
         </Route>
 
