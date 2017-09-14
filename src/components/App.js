@@ -12,6 +12,10 @@ class App extends Component {
     isSortbyVoteScorec: true
   }
 
+  onCreatingPost = (post) => {
+    this.setState(state => ({ posts: state.posts.concat([post]) }))
+  }
+
   componentDidMount () {
     fetchCategories()
       .then(categories => {
@@ -71,7 +75,7 @@ class App extends Component {
         </Route>
 
         <Route exact path='/create' render={() => (
-          <div><CreatePost category={categories}/></div>
+          <div><CreatePost category={categories} onCreatingPost={this.onCreatingPost}/></div>
         )}>
         </Route>
 

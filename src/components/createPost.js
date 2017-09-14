@@ -20,7 +20,10 @@ class CreatePost extends Component {
       "body": e.target.body.value
     })
     .then(res => {
-      res.id ? this.setState({ isSucceed: true}) : this.setState({ isSucceed: false})
+      if (res.id) {
+        this.props.onCreatingPost(res)
+        this.setState({ isSucceed: true})
+      }
     })
   }
 
