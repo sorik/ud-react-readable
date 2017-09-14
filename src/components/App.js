@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { fetchCategories, fetchAllPosts } from '../utils/api'
+import { sortByVoteScore } from '../utils/helpers'
 
 class App extends Component {
 
@@ -34,7 +35,7 @@ class App extends Component {
         </lo>
         <h2>Posts</h2>
         <lu>
-          {posts.map(post => (
+          {sortByVoteScore(posts).map(post => (
             <li key={post.id}>
               {post.title}
             </li>
