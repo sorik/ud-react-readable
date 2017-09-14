@@ -1,12 +1,13 @@
 import React, { Component } from 'react';
 import { fetchCategories, fetchAllPosts } from '../utils/api'
-import { sortByVoteScore } from '../utils/helpers'
+import { sortByVoteScore, sortByTimestamp } from '../utils/helpers'
 
 class App extends Component {
 
   state = {
     categories: [],
-    posts: []
+    posts: [],
+    isSortbyVoteScorec: true
   }
 
   componentDidMount () {
@@ -22,7 +23,10 @@ class App extends Component {
   }
 
   render() {
-    const { categories, posts } = this.state
+
+    const { categories, posts, isSortbyVoteScore } = this.state
+
+    const sortedPosts = isSortbyVoteScore ? sortByVoteScore(posts) : sortByTimestamp(posts)
 
     return (
       <div>
@@ -34,8 +38,14 @@ class App extends Component {
           ))}
         </lo>
         <h2>Posts</h2>
+        <button onClick={() => {this.setState({isSortbyVoteScore: false})}}>
+          latest
+        </button>
+        <button onClick={() => {this.setState({isSortbyVoteScore: true})}}>
+          highest score
+        </button>
         <lu>
-          {sortByVoteScore(posts).map(post => (
+          {sortedPosts.map(post => (
             <li key={post.id}>
               {post.title}
             </li>
