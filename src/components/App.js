@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Link, Route } from 'react-router-dom'
 import { fetchCategories, fetchAllPosts } from '../utils/api'
-import { sortByVoteScore, sortByTimestamp } from '../utils/helpers'
 import CreatePost from './createPost'
+import PostList from './postList'
 
 class App extends Component {
 
@@ -30,9 +30,7 @@ class App extends Component {
 
   render() {
 
-    const { categories, posts, isSortbyVoteScore } = this.state
-
-    const sortedPosts = isSortbyVoteScore ? sortByVoteScore(posts) : sortByTimestamp(posts)
+    const { categories, posts } = this.state
 
     return (
       <div>
@@ -51,20 +49,7 @@ class App extends Component {
             </div>
 
             <div>
-              <h2>Posts</h2>
-              <button onClick={() => {this.setState({isSortbyVoteScore: false})}}>
-                latest
-              </button>
-              <button onClick={() => {this.setState({isSortbyVoteScore: true})}}>
-                highest score
-              </button>
-              <lu>
-                {sortedPosts.map(post => (
-                  <li key={post.id}>
-                    {post.title}
-                  </li>
-                ))}
-              </lu>
+              <PostList posts={posts} />
             </div>
 
             <div>
