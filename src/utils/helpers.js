@@ -6,6 +6,6 @@ export function sortByVoteScore(posts) {
 
 export function sortByTimestamp(posts) {
   return posts.sort((a, b) => {
-    return (a.timestamp > b.timestamp) ? 1 : ((b.timestamp > a.timestamp ? -1 : 0))
+    return (a.timestamp > b.timestamp) ? -1 : ((b.timestamp > a.timestamp ? 1 : 0))
   })
 }
