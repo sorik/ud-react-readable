@@ -1,11 +1,13 @@
 import React, { Component } from 'react'
+import { Link } from 'react-router-dom'
 import { createPost } from '../utils/api'
 
 class CreatePost extends Component {
   state = {
     author: '',
     title: '',
-    body: ''
+    body: '',
+    isSucceed: false
   }
 
   create = (e) => {
@@ -17,6 +19,9 @@ class CreatePost extends Component {
       "category": e.target.category.value,
       "body": e.target.body.value
     })
+    .then(res => {
+      res.id ? this.setState({ isSucceed: true}) : this.setState({ isSucceed: false})
+    })
   }
 
   render() {
@@ -24,6 +29,7 @@ class CreatePost extends Component {
 
     return (
       <div>
+      {this.state.isSucceed !== true && (
         <div>
           <form onSubmit={this.create}>
             <label>Author
@@ -59,8 +65,15 @@ class CreatePost extends Component {
               <button type='submit'>Create</button>
             </p>
           </form>
-
         </div>
+      )}
+      {this.state.isSucceed && (
+        <div>
+          <div>Successfully created</div>
+          <Link to='/'>Go back</Link>
+        </div>
+      )}
+
       </div>
     )
   }

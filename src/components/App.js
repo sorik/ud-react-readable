@@ -20,7 +20,6 @@ class App extends Component {
 
     fetchAllPosts()
       .then(posts => {
-        console.log(posts)
         this.setState({ posts })
       })
   }
