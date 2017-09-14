@@ -10,8 +10,6 @@ import { Provider } from 'react-redux'
 
 const store = createStore(reducer)
 
-console.log(store)
-
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter><App /></BrowserRouter>

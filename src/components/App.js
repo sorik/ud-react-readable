@@ -1,19 +1,19 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
 import { Link, Route } from 'react-router-dom'
 import { fetchCategories, fetchAllPosts } from '../utils/api'
 import CreatePost from './createPost'
 import PostList from './postList'
+import { fetchPosts, addPost } from '../actions'
 
 class App extends Component {
 
   state = {
     categories: [],
-    posts: [],
-    isSortbyVoteScorec: true
   }
 
   onCreatingPost = (post) => {
-    this.setState(state => ({ posts: state.posts.concat([post]) }))
+    this.props.createdPost({ post })
   }
 
   componentDidMount () {
@@ -24,13 +24,14 @@ class App extends Component {
 
     fetchAllPosts()
       .then(posts => {
-        this.setState({ posts })
+        this.props.fetchedPosts({ posts })
       })
   }
 
   render() {
 
-    const { categories, posts } = this.state
+    const { categories } = this.state
+    const { posts } = this.props
 
     return (
       <div>
@@ -71,4 +72,15 @@ class App extends Component {
   }
 }
 
-export default App;
+function mapStateToProp(state) {
+  return state.posts ? state : { posts: [] }
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    fetchedPosts: (posts) => dispatch(fetchPosts(posts)),
+    createdPost: (post) => dispatch(addPost(post))
+  }
+}
+
+export default connect(mapStateToProp, mapDispatchToProps, null, {pure: false})(App);
