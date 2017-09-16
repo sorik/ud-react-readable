@@ -16,7 +16,7 @@ function posts(state = {}, action) {
       }
     case EDIT_POST:
       var filteredPosts = state.posts.filter(p => p.id !== post.id)
-
+      console.log(post)
       return {
         ...state,
         posts: filteredPosts.concat([post])

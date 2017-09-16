@@ -41,10 +41,14 @@ class Post extends Component {
 }
 
 function mapStateToProp(state, props) {
-  const postId = props.match.params.id
-  const posts =  state.posts.filter(post => post.id === postId)
+  if (state.posts) {
+    const postId = props.match.params.id
+    const posts =  state.posts.filter(post => post.id === postId)
 
-  return posts.length > 0 ? { post: posts[0] } : { post: {} }
+    return posts.length > 0 ? { post: posts[0] } : { post: {} }
+  } else {
+    return { post: {} }
+  }
 }
 
 export default connect(mapStateToProp)(Post)
