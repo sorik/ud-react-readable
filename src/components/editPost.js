@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { editPost } from '../utils/api'
+import { editPost as editPostAction } from '../actions'
 
 class EditPost extends Component {
   state = {
@@ -11,7 +12,9 @@ class EditPost extends Component {
     e.preventDefault()
 
     editPost(this.state)
-    .then()
+    .then(res => {
+      this.props.editPost({ post: res })
+    })
   }
 
   componentDidMount() {
@@ -57,4 +60,10 @@ function mapStateToProp(state, props) {
   }
 }
 
-export default connect(mapStateToProp)(EditPost)
+function mapDispatchToProps(dispatch) {
+  return {
+    editPost: (post) => dispatch(editPostAction(post))
+  }
+}
+
+export default connect(mapStateToProp, mapDispatchToProps)(EditPost)

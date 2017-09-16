@@ -1,4 +1,4 @@
-import { FETCH_POSTS, ADD_POST } from '../actions'
+import { FETCH_POSTS, ADD_POST, EDIT_POST } from '../actions'
 
 function posts(state = {}, action) {
   const { posts, post } = action
@@ -14,7 +14,13 @@ function posts(state = {}, action) {
         ...state,
         posts: state.posts.concat([post])
       }
+    case EDIT_POST:
+      var filteredPosts = state.posts.filter(p => p.id !== post.id)
 
+      return {
+        ...state,
+        posts: filteredPosts.concat([post])
+      }
     default:
       return state
   }
