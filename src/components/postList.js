@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { sortByVoteScore, sortByTimestamp } from '../utils/helpers'
+import { Link } from 'react-router-dom'
 
 class PostList extends Component {
   state = {
@@ -21,9 +22,11 @@ class PostList extends Component {
         </button>
         <lu>
           {sortedPosts.map(post => (
-            <li key={post.id}>
-              {post.title}
-            </li>
+            <div key={post.id}>
+              <Link to={'/posts/' + post.id}>
+                {post.title}
+              </Link>
+            </div>
           ))}
         </lu>
       </div>

@@ -4,6 +4,7 @@ import { Link, Route } from 'react-router-dom'
 import { fetchCategories, fetchAllPosts } from '../utils/api'
 import CreatePost from './createPost'
 import PostList from './postList'
+import Post from './post'
 import { fetchPosts, addPost } from '../actions'
 
 class App extends Component {
@@ -84,6 +85,8 @@ class App extends Component {
         )}>
         </Route>
 
+        <Route path='/posts/:id' component={Post}>
+        </Route>
 
 
       </div>
