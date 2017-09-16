@@ -37,11 +37,7 @@ class App extends Component {
   render() {
 
     const { categories, selectedCategory } = this.state
-    const { posts } = this.props
-    let filteredPosts = posts
-    if (selectedCategory !== 'all') {
-      filteredPosts = posts.filter((post) => { return post.category === selectedCategory })
-    }
+
     return (
       <div>
         <Route exact path='/' render={() => (
@@ -71,7 +67,7 @@ class App extends Component {
             </div>
 
             <div>
-              <PostList posts={filteredPosts} />
+              <PostList category={this.state.selectedCategory} />
             </div>
 
             <div>
