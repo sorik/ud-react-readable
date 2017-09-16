@@ -22,9 +22,10 @@ export function fetchAllPosts() {
 }
 
 export function createPost(post) {
+  var id = Date.now() * 1000
   var body = {
     ...post,
-    id: Date.now() * 1000,
+    id: id.toString(),
     timestamp: Date.now()
   }
 

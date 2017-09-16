@@ -34,6 +34,11 @@ class Post extends Component {
             <Link to={'/edit/' + id}>Edit</Link>
           </div>
         </div>
+        <div>
+          <div>
+            <Link to='/'>Go to main</Link>
+          </div>
+        </div>
 
       </div>
     )

@@ -17,7 +17,7 @@ class PostList extends Component {
     }
 
     const sortedPosts = this.state.isSortbyVoteScore ? sortByVoteScore(filteredPosts) : sortByTimestamp(filteredPosts)
-
+    console.log(sortedPosts)
     return (
       <div>
         <div>
