@@ -5,6 +5,7 @@ import { fetchCategories, fetchAllPosts } from '../utils/api'
 import CreatePost from './createPost'
 import PostList from './postList'
 import Post from './post'
+import EditPost from './editPost'
 import { fetchPosts, addPost } from '../actions'
 
 class App extends Component {
@@ -88,6 +89,8 @@ class App extends Component {
         <Route path='/posts/:id' component={Post}>
         </Route>
 
+        <Route path='/edit/:id' component={EditPost}>
+        </Route>
 
       </div>
     );

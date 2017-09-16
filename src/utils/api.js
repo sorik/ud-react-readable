@@ -38,3 +38,20 @@ export function createPost(post) {
   )
   .then(res => res.json())
 }
+
+export function editPost(post) {
+  var body = {
+    'title': post.title,
+    'body': post.body
+  }
+
+  return fetch(
+    `http://localhost:3001/posts/${post.id}`,
+    {
+      headers: HEADERS,
+      method: 'PUT',
+      body: JSON.stringify(body)
+    }
+  )
+  .then(res => res.json())
+}
