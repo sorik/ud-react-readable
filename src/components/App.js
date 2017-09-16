@@ -10,6 +10,7 @@ class App extends Component {
 
   state = {
     categories: [],
+    selectedCategory: 'all'
   }
 
   onCreatingPost = (post) => {
@@ -28,11 +29,17 @@ class App extends Component {
       })
   }
 
+  selectCategory(category) {
+    this.setState({selectedCategory: category})
+  }
   render() {
 
-    const { categories } = this.state
+    const { categories, selectedCategory } = this.state
     const { posts } = this.props
-
+    let filteredPosts = posts
+    if (selectedCategory !== 'all') {
+      filteredPosts = posts.filter((post) => { return post.category === selectedCategory })
+    }
     return (
       <div>
         <Route exact path='/' render={() => (
@@ -42,15 +49,27 @@ class App extends Component {
             </div>
             <div>
               <h2>Categories</h2>
-              <lo>
-                {categories.map(category => (
-                  <li key={category.name}>{category.name}</li>
-                ))}
-              </lo>
+              <form>
+                  <input
+                    type='radio'
+                    name='all'
+                    checked={selectedCategory === 'all'}
+                    onChange={() => this.selectCategory('all')}/>all
+                  {categories.map(category => (
+                    <div key={category.name}>
+                     <input
+                      type='radio'
+                      key={category.name}
+                      checked={selectedCategory === category.name}
+                      name={category.name} onChange={() => this.selectCategory(category.name)}/>
+                      {category.name}
+                    </div>
+                  ))}
+              </form>
             </div>
 
             <div>
-              <PostList posts={posts} />
+              <PostList posts={filteredPosts} />
             </div>
 
             <div>
