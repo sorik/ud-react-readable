@@ -5,12 +5,12 @@ import { Link } from 'react-router-dom'
 import { deletePost, fetchComments } from '../utils/api'
 import { deletePost as deletePostAction} from '../actions'
 import CommentList from './commentList'
+import CreateComment from './createComment'
 
 const TIME_FORMAT = 'DD-MM-YYYY HH:mm:ss'
 
 class Post extends Component {
   state = {
-    comments: []
   }
 
   delete = () => {
@@ -18,6 +18,12 @@ class Post extends Component {
     .then(res => {
       this.setState({ isSucceed: true })
       this.props.deletePost({ id: this.state.id })
+    })
+  }
+
+  commentCreated = (comment) => {
+    this.setState(state => {
+      return { comments: state.comments.concat([comment])}
     })
   }
 
@@ -35,13 +41,17 @@ class Post extends Component {
   }
 
   fetchComments(id) {
-    fetchComments(id)
-    .then(comments => {
-      this.setState({ comments })
-    })
+    if (!this.state.comments) {
+      fetchComments(id)
+      .then(comments => {
+        this.setState({ comments })
+      })
+    }
   }
 
   componentDidMount() {
+    console.log('post: component did mount')
+    console.log(this.props)
     this.setPostState()
     this.fetchComments(this.props.post.id)
   }
@@ -49,6 +59,9 @@ class Post extends Component {
   render() {
     const { id, title, author, timestamp, body, voteScore } = this.state
     const timeString = moment(timestamp).format(TIME_FORMAT)
+
+    console.log('post: render')
+    console.log(this.state.comments)
 
     return (
       <div>
@@ -92,9 +105,10 @@ class Post extends Component {
             <br/><br/>
             <div className='post-comments'>
               <div className='create-comment'>
+                <CreateComment postId={this.state.id} onCreated={this.commentCreated}/>
               </div>
               <div className='comment-list'>
-                <CommentList comments={this.state.comments}/>
+                {this.state.comments && <CommentList comments={this.state.comments}/>}
               </div>
             </div>
           </div>
@@ -117,7 +131,11 @@ function mapStateToProp(state, props) {
     const postId = props.match.params.id
     const posts =  state.posts.filter(post => post.id === postId)
 
-    return posts.length > 0 ? { post: posts[0] } : { post: {} }
+    if (posts.length > 0) {
+      let post = posts[0]
+      let comments = state.comments[post.id]
+      return comments ? { post, comments } : { post }
+    }
   } else {
     return { post: {} }
   }
@@ -125,7 +143,8 @@ function mapStateToProp(state, props) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    deletePost: (id) => dispatch(deletePostAction(id))
+    deletePost: (id) => dispatch(deletePostAction(id)),
+    // fetchComments: (id, comments) => dispatch(fetchCommentsAction(id, comments))
   }
 }
 export default connect(mapStateToProp, mapDispatchToProps)(Post)

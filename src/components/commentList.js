@@ -12,7 +12,9 @@ class CommentList extends Component {
         </div>
         <div>
           <ul>
-            {comments.map(comment => <Comment comment={comment}/>)}
+            {comments
+                .filter(comment => comment.deleted === false)
+                .map(comment => <Comment key={comment.id} comment={comment}/>)}
           </ul>
         </div>
 

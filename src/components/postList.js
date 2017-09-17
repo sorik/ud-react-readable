@@ -11,6 +11,8 @@ class PostList extends Component {
   render() {
     let { posts, category } = this.props
 
+    console.log('aaa')
+    console.log(posts)
     let filteredPosts = posts.filter(post => post.deleted === false)
     if (category !== 'all') {
       filteredPosts = posts.filter((post) => { return post.category === category })

@@ -73,3 +73,23 @@ export function fetchComments(postId) {
     )
     .then(res => res.json())
 }
+
+export function createComment(postId, comment) {
+  var id = Date.now() * 1000
+  var body = {
+    ...comment,
+    parentId: postId,
+    id: id.toString(),
+    timestamp: Date.now()
+  }
+
+  return fetch(
+    `http://localhost:3001/comments`,
+    {
+      headers: HEADERS,
+      method: 'POST',
+      body: JSON.stringify(body)
+    }
+  )
+  .then(res => res.json())
+}
