@@ -25,6 +25,22 @@ class Post extends Component {
     })
   }
 
+  commentDeleted = (id) => {
+    this.setState(state => {
+      return { comments: state.comments.map(comment => {
+        if (comment.id === id) {
+          return {
+            ...comment,
+            deleted: true
+          }
+        } else {
+          return comment
+        }
+      })}
+    })
+
+  }
+
   setPostState() {
     const { id, title, author, timestamp, body, voteScore } = this.props.post
 
@@ -101,7 +117,10 @@ class Post extends Component {
                 <CreateComment postId={this.state.id} onCreated={this.commentCreated}/>
               </div>
               <div className='comment-list'>
-                {this.state.comments && <CommentList comments={this.state.comments}/>}
+                {this.state.comments &&
+                  <CommentList
+                    comments={this.state.comments}
+                    onDelete={this.commentDeleted}/>}
               </div>
             </div>
           </div>

@@ -93,3 +93,12 @@ export function createComment(postId, comment) {
   )
   .then(res => res.json())
 }
+
+export function deleteComment(id) {
+  return fetch(
+      `http://localhost:3001/comments/${id}`,
+      { headers: HEADERS,
+        method: 'DELETE'
+      }
+    )
+}

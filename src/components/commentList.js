@@ -14,7 +14,13 @@ class CommentList extends Component {
           <ul>
             {comments
                 .filter(comment => comment.deleted === false)
-                .map(comment => <Comment key={comment.id} comment={comment}/>)}
+                .map(comment => {
+                    return (
+                      <Comment
+                        key={comment.id}
+                        comment={comment}
+                        onDelete={this.props.onDelete}/>
+                    )})}
           </ul>
           <br/>
         </div>
