@@ -2,11 +2,19 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
+import { deletePost } from '../utils/api'
 
 const TIME_FORMAT = 'DD-MM-YYYY HH:mm:ss'
 
 class Post extends Component {
   state = {
+  }
+
+  delete = () => {
+    deletePost(this.state.id)
+    .then(res => (
+      this.setState({ isSucceed: true })
+    ))
   }
 
   componentDidMount() {
@@ -28,33 +36,50 @@ class Post extends Component {
 
     return (
       <div>
-        <div>
+        {this.state.isSucceed !== true && (
           <div>
-            <h2>{title}</h2>
+            <div>
+              <div>
+                <h2>{title}</h2>
+              </div>
+              <div>
+                <h4>Author: <span>{author}</span></h4>
+              </div>
+              <div>
+                <h5>wrote at: <span>{timeString}</span></h5>
+              </div>
+              <div>
+                <h5>vote score: <span>{voteScore}</span></h5>
+              </div>
+              <div>
+                {body}
+              </div>
+            </div>
+            <div>
+              <div>
+                <Link to={'/edit/' + id}>Edit</Link>
+              </div>
+            </div>
+            <div>
+              <div>
+                <button onClick={this.delete}>Delete</button>
+              </div>
+            </div>
+            <div>
+              <div>
+                <Link to='/'>Go to main</Link>
+              </div>
+            </div>
           </div>
+        )}
+        {this.state.isSucceed && (
           <div>
-            <h4>Author: <span>{author}</span></h4>
+            <div>Successfully deleted</div>
+            <Link to='/'>Go back</Link>
           </div>
-          <div>
-            <h5>wrote at: <span>{timeString}</span></h5>
-          </div>
-          <div>
-            <h5>vote score: <span>{voteScore}</span></h5>
-          </div>
-          <div>
-            {body}
-          </div>
-        </div>
-        <div>
-          <div>
-            <Link to={'/edit/' + id}>Edit</Link>
-          </div>
-        </div>
-        <div>
-          <div>
-            <Link to='/'>Go to main</Link>
-          </div>
-        </div>
+        )}
+
+
       </div>
     )
   }
