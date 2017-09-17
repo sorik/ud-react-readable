@@ -2,13 +2,15 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
-import { deletePost } from '../utils/api'
+import { deletePost, fetchComments } from '../utils/api'
 import { deletePost as deletePostAction} from '../actions'
+import CommentList from './commentList'
 
 const TIME_FORMAT = 'DD-MM-YYYY HH:mm:ss'
 
 class Post extends Component {
   state = {
+    comments: []
   }
 
   delete = () => {
@@ -19,7 +21,7 @@ class Post extends Component {
     })
   }
 
-  componentDidMount() {
+  setPostState() {
     const { id, title, author, timestamp, body, voteScore } = this.props.post
 
     this.setState({
@@ -32,6 +34,18 @@ class Post extends Component {
     })
   }
 
+  fetchComments(id) {
+    fetchComments(id)
+    .then(comments => {
+      this.setState({ comments })
+    })
+  }
+
+  componentDidMount() {
+    this.setPostState()
+    this.fetchComments(this.props.post.id)
+  }
+
   render() {
     const { id, title, author, timestamp, body, voteScore } = this.state
     const timeString = moment(timestamp).format(TIME_FORMAT)
@@ -40,36 +54,47 @@ class Post extends Component {
       <div>
         {this.state.isSucceed !== true && (
           <div>
-            <div>
+             <div className='post-detail'>
               <div>
-                <h2>{title}</h2>
+                <div>
+                  <h2>{title}</h2>
+                </div>
+                <div>
+                  <h4>Author: <span>{author}</span></h4>
+                </div>
+                <div>
+                  <h5>wrote at: <span>{timeString}</span></h5>
+                </div>
+                <div>
+                  <h5>vote score: <span>{voteScore}</span></h5>
+                </div>
+                <div>
+                  {body}
+                </div>
+              </div>
+              <br/><br/>
+              <div>
+                <div>
+                  <Link to={'/edit/' + id}>Edit</Link>
+                </div>
               </div>
               <div>
-                <h4>Author: <span>{author}</span></h4>
+                <div>
+                  <button onClick={this.delete}>Delete</button>
+                </div>
               </div>
               <div>
-                <h5>wrote at: <span>{timeString}</span></h5>
-              </div>
-              <div>
-                <h5>vote score: <span>{voteScore}</span></h5>
-              </div>
-              <div>
-                {body}
+                <div>
+                  <Link to='/'>Go to main</Link>
+                </div>
               </div>
             </div>
-            <div>
-              <div>
-                <Link to={'/edit/' + id}>Edit</Link>
+            <br/><br/>
+            <div className='post-comments'>
+              <div className='create-comment'>
               </div>
-            </div>
-            <div>
-              <div>
-                <button onClick={this.delete}>Delete</button>
-              </div>
-            </div>
-            <div>
-              <div>
-                <Link to='/'>Go to main</Link>
+              <div className='comment-list'>
+                <CommentList comments={this.state.comments}/>
               </div>
             </div>
           </div>

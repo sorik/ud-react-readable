@@ -65,3 +65,11 @@ export function deletePost(id) {
       }
     )
 }
+
+export function fetchComments(postId) {
+  return fetch(
+      `http://localhost:3001/posts/${postId}/comments`,
+      { headers: HEADERS }
+    )
+    .then(res => res.json())
+}
