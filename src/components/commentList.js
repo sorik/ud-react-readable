@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import Comment from './comment'
+import { sortByVoteScore } from '../utils/helpers'
 
 class CommentList extends Component {
   render() {
@@ -13,7 +14,7 @@ class CommentList extends Component {
         </div>
         <div>
           <ul>
-            {activeComments.map(comment => {
+            {sortByVoteScore(activeComments).map(comment => {
                     return (
                       <Comment
                         key={comment.id}
