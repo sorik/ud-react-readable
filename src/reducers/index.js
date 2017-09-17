@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux'
 import { FETCH_POSTS, ADD_POST, EDIT_POST, DELETE_POST } from '../actions'
-import { FETCH_COMMENTS } from '../actions'
+import { FETCH_COMMENTS, ADD_COMMENT } from '../actions'
 
 function comments(state = {}, action) {
-  const { postId, comments } = action
+  const { postId, comments, comment } = action
 
   switch(action.type) {
     case FETCH_COMMENTS:
@@ -11,6 +11,13 @@ function comments(state = {}, action) {
         ...state,
         [postId]: comments
       }
+
+    case ADD_COMMENT:
+      return {
+        ...state,
+        [postId]: state[postId].concat[comment]
+      }
+
     default:
      return state
   }
@@ -37,7 +44,7 @@ function posts(state = [], action) {
       deletedPost.deleted = true;
 
       return filteredPosts.concat([deletedPost])
-      
+
     default:
       return state
   }

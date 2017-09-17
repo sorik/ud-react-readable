@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { deletePost, fetchComments } from '../utils/api'
-import { deletePost as deletePostAction} from '../actions'
+import { deletePost as deletePostAction, fetchComments as fetchCommentsAction } from '../actions'
 import CommentList from './commentList'
 import CreateComment from './createComment'
 import { formatTimestamp } from '../utils/helpers'
@@ -16,12 +16,6 @@ class Post extends Component {
     .then(res => {
       this.setState({ isSucceed: true })
       this.props.deletePost({ id: this.state.id })
-    })
-  }
-
-  commentCreated = (comment) => {
-    this.setState(state => {
-      return { comments: state.comments.concat([comment])}
     })
   }
 
@@ -58,7 +52,12 @@ class Post extends Component {
     if (!this.state.comments) {
       fetchComments(id)
       .then(comments => {
-        this.setState({ comments })
+        console.log('fetchComments')
+        console.log(comments)
+        this.props.fetchComments({
+          postId: id,
+          comments
+        })
       })
     }
   }
@@ -70,6 +69,7 @@ class Post extends Component {
 
   render() {
     const { id, title, author, timestamp, body, voteScore } = this.state
+    const { comments } = this.props
     const timeString = formatTimestamp(timestamp)
 
     return (
@@ -114,12 +114,12 @@ class Post extends Component {
             <br/><br/>
             <div className='post-comments'>
               <div className='create-comment'>
-                <CreateComment postId={this.state.id} onCreated={this.commentCreated}/>
+                <CreateComment postId={this.state.id} />
               </div>
               <div className='comment-list'>
-                {this.state.comments &&
+                {comments &&
                   <CommentList
-                    comments={this.state.comments}
+                    comments={comments}
                     onDelete={this.commentDeleted}/>}
               </div>
             </div>
@@ -156,7 +156,7 @@ function mapStateToProp(state, props) {
 function mapDispatchToProps(dispatch) {
   return {
     deletePost: (id) => dispatch(deletePostAction(id)),
-    // fetchComments: (id, comments) => dispatch(fetchCommentsAction(id, comments))
+    fetchComments: (data) => dispatch(fetchCommentsAction(data))
   }
 }
 export default connect(mapStateToProp, mapDispatchToProps)(Post)

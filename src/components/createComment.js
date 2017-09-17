@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { createComment } from '../utils/api'
+import { addComment } from '../actions'
 
 class CreateComment extends Component {
   state = {
@@ -9,11 +11,12 @@ class CreateComment extends Component {
 
   create = (e) => {
     e.preventDefault()
+    const { postId } = this.props
     let comment = { author: this.state.author, body: this.state.body }
 
-    createComment(this.props.postId, comment)
+    createComment(postId, comment)
       .then(res => {
-        this.props.onCreated(res)
+        this.props.addComment(postId, res)
       })
 
     this.setState({ author: '', body: '' })
@@ -48,4 +51,14 @@ class CreateComment extends Component {
   }
 }
 
-export default CreateComment
+function mapStateToProp(state) {
+  return state
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    addComment: (data) => dispatch(addComment(data))
+  }
+}
+
+export default connect(mapStateToProp, mapDispatchToProps)(CreateComment)
