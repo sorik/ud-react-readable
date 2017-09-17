@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
+import { formatTimestamp } from '../utils/helpers'
 
 class Comment extends Component {
   render() {
-    const { body } = this.props.comment
+    const { author, body, timestamp, voteScore } = this.props.comment
     return (
       <div>
-        {body}
+        <table>
+          <tr>
+            <td>score is {voteScore}</td>
+            <td>{author} wrote at {formatTimestamp(timestamp)}</td>
+          </tr>
+          <tr>
+            {body}
+          </tr>
+        </table>
       </div>
     )
   }

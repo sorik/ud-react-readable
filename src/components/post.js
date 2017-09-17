@@ -1,13 +1,11 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { deletePost, fetchComments } from '../utils/api'
 import { deletePost as deletePostAction} from '../actions'
 import CommentList from './commentList'
 import CreateComment from './createComment'
-
-const TIME_FORMAT = 'DD-MM-YYYY HH:mm:ss'
+import { formatTimestamp } from '../utils/helpers'
 
 class Post extends Component {
   state = {
@@ -50,18 +48,13 @@ class Post extends Component {
   }
 
   componentDidMount() {
-    console.log('post: component did mount')
-    console.log(this.props)
     this.setPostState()
     this.fetchComments(this.props.post.id)
   }
 
   render() {
     const { id, title, author, timestamp, body, voteScore } = this.state
-    const timeString = moment(timestamp).format(TIME_FORMAT)
-
-    console.log('post: render')
-    console.log(this.state.comments)
+    const timeString = formatTimestamp(timestamp)
 
     return (
       <div>

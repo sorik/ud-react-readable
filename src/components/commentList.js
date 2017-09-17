@@ -16,6 +16,7 @@ class CommentList extends Component {
                 .filter(comment => comment.deleted === false)
                 .map(comment => <Comment key={comment.id} comment={comment}/>)}
           </ul>
+          <br/>
         </div>
 
       </div>

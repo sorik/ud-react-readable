@@ -1,3 +1,11 @@
+import moment from 'moment'
+
+const TIME_FORMAT = 'DD-MM-YYYY HH:mm:ss'
+
+export function formatTimestamp(timestamp) {
+  return moment(timestamp).format(TIME_FORMAT)
+}
+
 export function sortByVoteScore(posts) {
   return posts.sort((a, b) => {
     return (a.voteScore > b.voteScore) ? 1 : ((b.voteScore > a.voteScore ? -1 : 0))
