@@ -1,6 +1,7 @@
 export const FETCH_POSTS = 'FETCH_POSTS'
 export const ADD_POST = 'ADD_POST'
 export const EDIT_POST = 'EDIT_POST'
+export const DELETE_POST = 'DELETE_POST'
 
 export function fetchPosts({ posts }) {
   return {
@@ -20,5 +21,12 @@ export function editPost({ post }) {
   return {
     type: EDIT_POST,
     post
+  }
+}
+
+export function deletePost({ id }) {
+  return {
+    type: DELETE_POST,
+    id
   }
 }

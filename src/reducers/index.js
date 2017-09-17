@@ -1,7 +1,7 @@
-import { FETCH_POSTS, ADD_POST, EDIT_POST } from '../actions'
+import { FETCH_POSTS, ADD_POST, EDIT_POST, DELETE_POST } from '../actions'
 
 function posts(state = {}, action) {
-  const { posts, post } = action
+  const { posts, post, id } = action
 
   switch(action.type) {
     case FETCH_POSTS:
@@ -16,10 +16,19 @@ function posts(state = {}, action) {
       }
     case EDIT_POST:
       var filteredPosts = state.posts.filter(p => p.id !== post.id)
-      console.log(post)
+
       return {
         ...state,
         posts: filteredPosts.concat([post])
+      }
+    case DELETE_POST:
+      filteredPosts = state.posts.filter(p => p.id !== id)
+      var deletedPost = state.posts.filter(p => p.id === id)
+      deletedPost.deleted = true;
+
+      return {
+        ...state,
+        posts: filteredPosts.concat([deletedPost])
       }
     default:
       return state

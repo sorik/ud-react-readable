@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import moment from 'moment'
 import { Link } from 'react-router-dom'
 import { deletePost } from '../utils/api'
+import { deletePost as deletePostAction} from '../actions'
 
 const TIME_FORMAT = 'DD-MM-YYYY HH:mm:ss'
 
@@ -12,9 +13,10 @@ class Post extends Component {
 
   delete = () => {
     deletePost(this.state.id)
-    .then(res => (
+    .then(res => {
       this.setState({ isSucceed: true })
-    ))
+      this.props.deletePost({ id: this.state.id })
+    })
   }
 
   componentDidMount() {
@@ -96,4 +98,9 @@ function mapStateToProp(state, props) {
   }
 }
 
-export default connect(mapStateToProp)(Post)
+function mapDispatchToProps(dispatch) {
+  return {
+    deletePost: (id) => dispatch(deletePostAction(id))
+  }
+}
+export default connect(mapStateToProp, mapDispatchToProps)(Post)
