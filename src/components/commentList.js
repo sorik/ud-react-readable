@@ -4,17 +4,16 @@ import Comment from './comment'
 class CommentList extends Component {
   render() {
     const { comments } = this.props
+    const activeComments = comments.filter(comment => comment.deleted === false)
 
     return (
       <div>
         <div>
-          <h3>Comments</h3>
+          <h3>Comments({activeComments.length})</h3>
         </div>
         <div>
           <ul>
-            {comments
-                .filter(comment => comment.deleted === false)
-                .map(comment => {
+            {activeComments.map(comment => {
                     return (
                       <Comment
                         key={comment.id}
