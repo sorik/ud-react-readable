@@ -18,8 +18,7 @@ class CommentList extends Component {
                     return (
                       <Comment
                         key={comment.id}
-                        comment={comment}
-                        onDelete={this.props.onDelete}/>
+                        comment={comment}/>
                     )})}
           </ul>
           <br/>

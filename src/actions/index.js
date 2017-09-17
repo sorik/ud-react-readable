@@ -4,6 +4,7 @@ export const EDIT_POST = 'EDIT_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const FETCH_COMMENTS = 'FETCH_COMMENTS'
 export const ADD_COMMENT = 'CREATE_COMMENT'
+export const REMOVE_COMMENT = 'REMOVE_COMMENT'
 
 export function fetchPosts({ posts }) {
   return {
@@ -46,5 +47,13 @@ export function addComment({ postId, comment }) {
     type: ADD_COMMENT,
     postId,
     comment
+  }
+}
+
+export function removeComment({ postId, commentId }) {
+  return {
+    type: REMOVE_COMMENT,
+    postId,
+    commentId
   }
 }

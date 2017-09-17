@@ -16,7 +16,7 @@ class CreateComment extends Component {
 
     createComment(postId, comment)
       .then(res => {
-        this.props.addComment(postId, res)
+        this.props.addComment({ postId: postId, comment: res })
       })
 
     this.setState({ author: '', body: '' })

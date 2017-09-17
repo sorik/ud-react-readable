@@ -9,47 +9,21 @@ import { formatTimestamp } from '../utils/helpers'
 
 class Post extends Component {
   state = {
+    isDeleted: false
   }
 
   delete = () => {
-    deletePost(this.state.id)
+    const { id } = this.props.post
+
+    deletePost(id)
     .then(res => {
-      this.setState({ isSucceed: true })
-      this.props.deletePost({ id: this.state.id })
-    })
-  }
-
-  commentDeleted = (id) => {
-    this.setState(state => {
-      return { comments: state.comments.map(comment => {
-        if (comment.id === id) {
-          return {
-            ...comment,
-            deleted: true
-          }
-        } else {
-          return comment
-        }
-      })}
-    })
-
-  }
-
-  setPostState() {
-    const { id, title, author, timestamp, body, voteScore } = this.props.post
-
-    this.setState({
-      id,
-      title,
-      author,
-      timestamp,
-      body,
-      voteScore
+      this.setState({ isDeleted: true })
+      this.props.deletePost({ id })
     })
   }
 
   fetchComments(id) {
-    if (!this.state.comments) {
+    if (!this.props.comments) {
       fetchComments(id)
       .then(comments => {
         console.log('fetchComments')
@@ -63,18 +37,17 @@ class Post extends Component {
   }
 
   componentDidMount() {
-    this.setPostState()
     this.fetchComments(this.props.post.id)
   }
 
   render() {
-    const { id, title, author, timestamp, body, voteScore } = this.state
+    const { id, title, author, timestamp, body, voteScore } = this.props.post
     const { comments } = this.props
     const timeString = formatTimestamp(timestamp)
 
     return (
       <div>
-        {this.state.isSucceed !== true && (
+        {this.state.isDeleted !== true && (
           <div>
              <div className='post-detail'>
               <div>
@@ -114,18 +87,17 @@ class Post extends Component {
             <br/><br/>
             <div className='post-comments'>
               <div className='create-comment'>
-                <CreateComment postId={this.state.id} />
+                <CreateComment postId={id} />
               </div>
               <div className='comment-list'>
                 {comments &&
                   <CommentList
-                    comments={comments}
-                    onDelete={this.commentDeleted}/>}
+                    comments={comments.filter(comment => comment.deleted === false)} />}
               </div>
             </div>
           </div>
         )}
-        {this.state.isSucceed && (
+        {this.state.isDeleted && (
           <div>
             <div>Successfully deleted</div>
             <Link to='/'>Go back</Link>
