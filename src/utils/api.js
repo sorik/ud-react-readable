@@ -56,3 +56,13 @@ export function editPost(post) {
   )
   .then(res => res.json())
 }
+
+export function deletePost(id) {
+  return fetch(
+      `http://localhost:3001/posts/${id}`,
+      { headers: HEADERS,
+        method: 'DELETE'
+      }
+    )
+    .then(res => res.json())
+}
