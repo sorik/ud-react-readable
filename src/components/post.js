@@ -6,8 +6,24 @@ import { Link } from 'react-router-dom'
 const TIME_FORMAT = 'DD-MM-YYYY HH:mm:ss'
 
 class Post extends Component {
-  render() {
+  state = {
+  }
+
+  componentDidMount() {
     const { id, title, author, timestamp, body, voteScore } = this.props.post
+
+    this.setState({
+      id,
+      title,
+      author,
+      timestamp,
+      body,
+      voteScore
+    })
+  }
+
+  render() {
+    const { id, title, author, timestamp, body, voteScore } = this.state
     const timeString = moment(timestamp).format(TIME_FORMAT)
 
     return (
@@ -39,7 +55,6 @@ class Post extends Component {
             <Link to='/'>Go to main</Link>
           </div>
         </div>
-
       </div>
     )
   }
