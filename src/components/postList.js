@@ -30,7 +30,7 @@ class PostList extends Component {
             {sortedPosts.map(post => (
               <div key={post.id}>
                 <Link to={'/posts/' + post.id}>
-                  {post.title}
+                  {post.title} *** score: {post.voteScore}
                 </Link>
               </div>
             ))}
