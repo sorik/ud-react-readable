@@ -26,8 +26,6 @@ class Post extends Component {
     if (!this.props.comments) {
       fetchComments(id)
       .then(comments => {
-        console.log('fetchComments')
-        console.log(comments)
         this.props.fetchComments({
           postId: id,
           comments

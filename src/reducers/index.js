@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux'
 import { FETCH_POSTS, ADD_POST, EDIT_POST, DELETE_POST } from '../actions'
-import { FETCH_COMMENTS, ADD_COMMENT, REMOVE_COMMENT } from '../actions'
+import { FETCH_COMMENTS, ADD_COMMENT, REMOVE_COMMENT, ALTER_COMMENT } from '../actions'
 
 function comments(state = {}, action) {
   const { postId, comments, comment, commentId } = action
@@ -24,6 +24,11 @@ function comments(state = {}, action) {
         [postId]: state[postId].filter(comment => comment.id !== commentId)
       }
 
+    case ALTER_COMMENT:
+      return {
+        ...state,
+        [postId]: state[postId].filter(c => c.id !== comment.id).concat([comment])
+      }
     default:
      return state
   }

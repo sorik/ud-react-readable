@@ -102,3 +102,20 @@ export function deleteComment(id) {
       }
     )
 }
+
+export function editComment(id, body) {
+  var reqBody = {
+    body,
+    timestamp: Date.now()
+  }
+
+  return fetch(
+    `http://localhost:3001/comments/${id}`,
+    {
+      headers: HEADERS,
+      method: 'PUT',
+      body: JSON.stringify(reqBody)
+    }
+  )
+  .then(res => res.json())
+}
