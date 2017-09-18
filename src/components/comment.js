@@ -3,6 +3,7 @@ import { connect } from 'react-redux'
 import { formatTimestamp } from '../utils/helpers'
 import { deleteComment, editComment } from '../utils/api'
 import { removeComment, alterComment } from '../actions'
+import Voting from './voting'
 
 class Comment extends Component {
   state = {
@@ -39,11 +40,14 @@ class Comment extends Component {
   }
 
   render() {
-    const { author, body, timestamp, voteScore } = this.props.comment
+    const { id, author, body, timestamp, voteScore } = this.props.comment
     return (
       <div>
         <table>
           <tr>
+            <td>
+              <Voting type='comment' id={id} postId={this.props.comment.parentId} />
+            </td>
             <td>score is {voteScore}</td>
             <td>{author} wrote at {formatTimestamp(timestamp)}</td>
           </tr>

@@ -135,3 +135,19 @@ export function voteToPost(id, option) {
   )
   .then(res => res.json())
 }
+
+export function voteToComment(id, option) {
+  var body = {
+    option
+  }
+
+  return fetch(
+    `http://localhost:3001/comments/${id}`,
+    {
+      headers: HEADERS,
+      method: 'POST',
+      body: JSON.stringify(body)
+    }
+  )
+  .then(res => res.json())
+}
