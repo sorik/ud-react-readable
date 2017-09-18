@@ -5,6 +5,7 @@ import { deletePost, fetchComments } from '../utils/api'
 import { deletePost as deletePostAction, fetchComments as fetchCommentsAction } from '../actions'
 import CommentList from './commentList'
 import CreateComment from './createComment'
+import Voting from './voting'
 import { formatTimestamp } from '../utils/helpers'
 
 class Post extends Component {
@@ -59,6 +60,7 @@ class Post extends Component {
                   <h5>wrote at: <span>{timeString}</span></h5>
                 </div>
                 <div>
+                  <Voting type='post' id={id} />
                   <h5>vote score: <span>{voteScore}</span></h5>
                 </div>
                 <div>
