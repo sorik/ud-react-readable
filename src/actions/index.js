@@ -1,7 +1,7 @@
 export const FETCH_POSTS = 'FETCH_POSTS'
 export const ADD_POST = 'ADD_POST'
-export const EDIT_POST = 'EDIT_POST'
-export const DELETE_POST = 'DELETE_POST'
+export const UPDATE_POST = 'UPDATE_POST'
+export const REMOVE_POST = 'REMOVE_POST'
 export const FETCH_COMMENTS = 'FETCH_COMMENTS'
 export const ADD_COMMENT = 'CREATE_COMMENT'
 export const REMOVE_COMMENT = 'REMOVE_COMMENT'
@@ -22,16 +22,16 @@ export function addPost({ post }) {
   }
 }
 
-export function editPost({ post }) {
+export function updatePost({ post }) {
   return {
-    type: EDIT_POST,
+    type: UPDATE_POST,
     post
   }
 }
 
-export function deletePost({ id }) {
+export function removePost({ id }) {
   return {
-    type: DELETE_POST,
+    type: REMOVE_POST,
     id
   }
 }

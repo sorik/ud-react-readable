@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import { Link } from 'react-router-dom'
 import { createPost } from '../utils/api'
+import { connect } from 'react-redux'
+import { addPost } from '../actions'
 
 class CreatePost extends Component {
   state = {
@@ -21,7 +23,7 @@ class CreatePost extends Component {
     })
     .then(res => {
       if (res.id) {
-        this.props.onCreatingPost(res)
+        this.props.createdPost({ post: res })
         this.setState({ isSucceed: true})
       }
     })
@@ -82,4 +84,14 @@ class CreatePost extends Component {
   }
 }
 
-export default CreatePost
+function mapStateToProp(state) {
+  return state
+}
+
+function mapDispatchToProps(dispatch) {
+  return {
+    createdPost: (data) => dispatch(addPost(data))
+  }
+}
+
+export default connect(mapStateToProp, mapDispatchToProps)(CreatePost)

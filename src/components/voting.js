@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { voteToPost, voteToComment } from '../utils/api'
-import { editPost, alterComment } from '../actions'
+import { updatePost, alterComment } from '../actions'
 
 class Voting extends Component {
 
@@ -45,7 +45,7 @@ function mapStateToProp(state) {
 
 function mapDispatchToProp(dispatch) {
   return {
-    updatePost: (data) => dispatch(editPost(data)),
+    updatePost: (data) => dispatch(updatePost(data)),
     updateComment: (data) => dispatch(alterComment(data))
   }
 }

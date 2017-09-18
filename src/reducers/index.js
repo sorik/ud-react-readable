@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import { FETCH_POSTS, ADD_POST, EDIT_POST, DELETE_POST } from '../actions'
+import { FETCH_POSTS, ADD_POST, UPDATE_POST, REMOVE_POST } from '../actions'
 import { FETCH_COMMENTS, ADD_COMMENT, REMOVE_COMMENT, ALTER_COMMENT } from '../actions'
 
 function commentsCache(state=[], action) {
@@ -45,14 +45,14 @@ function posts(state = [], action) {
     case ADD_POST:
       return state.concat([post])
 
-    case EDIT_POST:
+    case UPDATE_POST:
       var filteredPosts = state.filter(p => p.id !== post.id)
 
       return filteredPosts.concat([post])
 
-    case DELETE_POST:
+    case REMOVE_POST:
       filteredPosts = state.filter(p => p.id !== id)
-      var deletedPost = state.filter(p => p.id === id)
+      var deletedPost = state.filter(p => p.id === id)[0]
       deletedPost.deleted = true;
 
       return filteredPosts.concat([deletedPost])

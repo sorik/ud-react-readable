@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { editPost } from '../utils/api'
-import { editPost as editPostAction } from '../actions'
+import { updatePost } from '../actions'
 import { Link } from 'react-router-dom'
 
 class EditPost extends Component {
@@ -74,7 +74,7 @@ function mapStateToProp(state, props) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    editPost: (post) => dispatch(editPostAction(post))
+    editPost: (post) => dispatch(updatePost(post))
   }
 }
 

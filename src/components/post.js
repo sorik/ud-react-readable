@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { deletePost, fetchComments } from '../utils/api'
-import { deletePost as deletePostAction, fetchComments as fetchCommentsAction } from '../actions'
+import { removePost, fetchComments as fetchCommentsAction } from '../actions'
 import CommentList from './commentList'
 import CreateComment from './createComment'
 import Voting from './voting'
@@ -114,7 +114,7 @@ function mapStateToProp(state, props) {
   if (state.posts) {
     const postId = props.match.params.id
     const posts =  state.posts.filter(post => post.id === postId)
-
+    
     if (posts.length > 0) {
       let post = posts[0]
       let isCommentsCached = state.commentsCache.filter(c => c === post.id).length > 0 ? true : false
@@ -132,7 +132,7 @@ function mapStateToProp(state, props) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    deletePost: (id) => dispatch(deletePostAction(id)),
+    deletePost: (id) => dispatch(removePost(id)),
     fetchComments: (data) => dispatch(fetchCommentsAction(data))
   }
 }

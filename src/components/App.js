@@ -15,10 +15,6 @@ class App extends Component {
     selectedCategory: 'all'
   }
 
-  onCreatingPost = (post) => {
-    this.props.createdPost({ post })
-  }
-
   componentDidMount () {
     fetchCategories()
       .then(categories => {
@@ -78,7 +74,7 @@ class App extends Component {
         </Route>
 
         <Route exact path='/create' render={() => (
-          <div><CreatePost category={categories} onCreatingPost={this.onCreatingPost}/></div>
+          <div><CreatePost category={categories} /></div>
         )}>
         </Route>
 
@@ -99,8 +95,7 @@ function mapStateToProp(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchedPosts: (posts) => dispatch(fetchPosts(posts)),
-    createdPost: (post) => dispatch(addPost(post))
+    fetchedPosts: (posts) => dispatch(fetchPosts(posts))
   }
 }
 
