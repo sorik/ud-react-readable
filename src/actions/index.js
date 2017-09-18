@@ -7,6 +7,8 @@ export const ADD_COMMENT = 'CREATE_COMMENT'
 export const REMOVE_COMMENT = 'REMOVE_COMMENT'
 export const ALTER_COMMENT = 'ALTER_COMMENT'
 export const CACHE_COMMENTS = 'CACHE_COMMENTS'
+export const FETCH_CATEGORIES = 'FETCH_CATEGORIES'
+export const SELECT_CATEGORY = 'SELECT_CATEGORY'
 
 export function fetchPosts({ posts }) {
   return {
@@ -62,5 +64,19 @@ export function alterComment({ postId, comment }) {
   return {
     type: ALTER_COMMENT,
     comment
+  }
+}
+
+export function fetchCategories({ categories }) {
+  return {
+    type: FETCH_CATEGORIES,
+    categories
+  }
+}
+
+export function selectCategory({ selected }) {
+  return {
+    type: SELECT_CATEGORY,
+    selected
   }
 }

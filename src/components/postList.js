@@ -42,7 +42,7 @@ class PostList extends Component {
 }
 
 function mapStateToProp(state, props) {
-  return state.posts ? state : { posts: [] }
+  return { posts: state.posts, category: state.category.selectedCategory }
 }
 
 export default connect(mapStateToProp)(PostList)

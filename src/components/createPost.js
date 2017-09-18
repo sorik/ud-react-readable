@@ -30,7 +30,7 @@ class CreatePost extends Component {
   }
 
   render() {
-    const { category } = this.props
+    const { categories } = this.props
 
     return (
       <div>
@@ -50,7 +50,7 @@ class CreatePost extends Component {
                 name='category'
                 value={this.state.category}
                 onChange={e => this.setState({ category: e.target.value })}>
-                {category.map(cat => (
+                {categories.map(cat => (
                   <option key={cat.name}>{cat.name}</option>
                 ))}
               </select>
@@ -85,7 +85,7 @@ class CreatePost extends Component {
 }
 
 function mapStateToProp(state) {
-  return state
+  return { categories: state.category.categories }
 }
 
 function mapDispatchToProps(dispatch) {

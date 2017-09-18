@@ -6,19 +6,15 @@ import CreatePost from './createPost'
 import PostList from './postList'
 import Post from './post'
 import EditPost from './editPost'
-import { fetchPosts, addPost } from '../actions'
+import CategoryList from './categoryList'
+import { fetchPosts, fetchCategories as fetchCategoriesAction } from '../actions'
 
 class App extends Component {
-
-  state = {
-    categories: [],
-    selectedCategory: 'all'
-  }
 
   componentDidMount () {
     fetchCategories()
       .then(categories => {
-        this.setState({ categories })
+        this.props.fetchCategories({ categories })
       })
 
     fetchAllPosts()
@@ -27,13 +23,7 @@ class App extends Component {
       })
   }
 
-  selectCategory(category) {
-    this.setState({selectedCategory: category})
-  }
   render() {
-
-    const { categories, selectedCategory } = this.state
-
     return (
       <div>
         <Route exact path='/' render={() => (
@@ -42,28 +32,11 @@ class App extends Component {
               <h1>Readable</h1>
             </div>
             <div>
-              <h2>Categories</h2>
-              <form>
-                  <input
-                    type='radio'
-                    name='all'
-                    checked={selectedCategory === 'all'}
-                    onChange={() => this.selectCategory('all')}/>all
-                  {categories.map(category => (
-                    <div key={category.name}>
-                     <input
-                      type='radio'
-                      key={category.name}
-                      checked={selectedCategory === category.name}
-                      name={category.name} onChange={() => this.selectCategory(category.name)}/>
-                      {category.name}
-                    </div>
-                  ))}
-              </form>
+              <CategoryList />
             </div>
 
             <div>
-              <PostList category={this.state.selectedCategory} />
+              <PostList />
             </div>
 
             <div>
@@ -74,7 +47,7 @@ class App extends Component {
         </Route>
 
         <Route exact path='/create' render={() => (
-          <div><CreatePost category={categories} /></div>
+          <div><CreatePost /></div>
         )}>
         </Route>
 
@@ -95,7 +68,8 @@ function mapStateToProp(state) {
 
 function mapDispatchToProps(dispatch) {
   return {
-    fetchedPosts: (posts) => dispatch(fetchPosts(posts))
+    fetchCategories: (data) => dispatch(fetchCategoriesAction(data)),
+    fetchedPosts: (data) => dispatch(fetchPosts(data))
   }
 }
 
