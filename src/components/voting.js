@@ -6,25 +6,29 @@ import { editPost } from '../actions'
 class Voting extends Component {
 
   like = () => {
+    this.vote('upVote')
+  }
+
+  dislike = () => {
+    this.vote('downVote')
+  }
+
+  vote = (votingType) => {
     const { type, id, updatePost } = this.props
 
     if (type === 'post') {
-      voteToPost(id, 'upVote')
+      voteToPost(id, votingType)
         .then(res => {
           updatePost({ post: res })
         })
     }
   }
 
-  dislike = () => {
-
-  }
-
   render() {
     return (
       <div>
         <button onClick={this.like}>Like</button>
-        <button>Dislike</button>
+        <button onClick={this.dislike}>Dislike</button>
       </div>
     )
   }
