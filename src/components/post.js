@@ -28,7 +28,7 @@ class Post extends Component {
       fetchComments(id)
       .then(comments => {
         this.props.fetchComments({
-          postId: id,
+          parentId: id,
           comments
         })
       })
@@ -117,8 +117,13 @@ function mapStateToProp(state, props) {
 
     if (posts.length > 0) {
       let post = posts[0]
-      let comments = state.comments[post.id]
-      return comments ? { post, comments } : { post }
+      let isCommentsCached = state.commentsCache.filter(c => c === post.id).length > 0 ? true : false
+
+      if (isCommentsCached) {
+        var comments = state.comments.filter(comment => comment.parentId === post.id)
+      }
+
+      return isCommentsCached ? { post, comments } : { post }
     }
   } else {
     return { post: {} }

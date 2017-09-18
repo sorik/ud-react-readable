@@ -12,11 +12,11 @@ class Comment extends Component {
   }
 
   delete = () => {
-    const { id, parentId } = this.props.comment
+    const { id } = this.props.comment
 
     deleteComment(id)
       .then(res => {
-        this.props.removeComment({ postId: parentId, commentId: id })
+        this.props.removeComment({ commentId: id })
       })
   }
 
@@ -32,10 +32,7 @@ class Comment extends Component {
     this.setState({ isEditMode: false })
     editComment(this.props.comment.id, this.state.body)
       .then(res => {
-        this.props.alterComment({
-          postId: this.props.comment.parentId,
-          comment: res
-        })
+        this.props.alterComment({ comment: res })
       })
   }
 

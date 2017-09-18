@@ -6,6 +6,7 @@ export const FETCH_COMMENTS = 'FETCH_COMMENTS'
 export const ADD_COMMENT = 'CREATE_COMMENT'
 export const REMOVE_COMMENT = 'REMOVE_COMMENT'
 export const ALTER_COMMENT = 'ALTER_COMMENT'
+export const CACHE_COMMENTS = 'CACHE_COMMENTS'
 
 export function fetchPosts({ posts }) {
   return {
@@ -35,10 +36,10 @@ export function deletePost({ id }) {
   }
 }
 
-export function fetchComments({ postId, comments }) {
+export function fetchComments({ parentId, comments }) {
   return {
     type: FETCH_COMMENTS,
-    postId,
+    parentId,
     comments
   }
 }
@@ -46,7 +47,6 @@ export function fetchComments({ postId, comments }) {
 export function addComment({ postId, comment }) {
   return {
     type: ADD_COMMENT,
-    postId,
     comment
   }
 }
@@ -54,7 +54,6 @@ export function addComment({ postId, comment }) {
 export function removeComment({ postId, commentId }) {
   return {
     type: REMOVE_COMMENT,
-    postId,
     commentId
   }
 }
@@ -62,7 +61,6 @@ export function removeComment({ postId, commentId }) {
 export function alterComment({ postId, comment }) {
   return {
     type: ALTER_COMMENT,
-    postId,
     comment
   }
 }
