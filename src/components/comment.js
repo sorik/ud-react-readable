@@ -45,13 +45,11 @@ class Comment extends Component {
       <div>
         <table>
           <tr>
-            <td>
-              <Voting type='comment' id={id} postId={this.props.comment.parentId} />
-            </td>
-            <td>score is {voteScore}</td>
+            <td><h5>score is {voteScore}</h5></td>
             <td>{author} wrote at {formatTimestamp(timestamp)}</td>
           </tr>
           <tr>
+
             {this.state.isEditMode === false && <div>{body}</div>}
             {this.state.isEditMode === true &&
               <div>
@@ -66,6 +64,9 @@ class Comment extends Component {
           </tr>
           <tr>
             <td>
+              <Voting type='comment' id={id} postId={this.props.comment.parentId} />
+            </td>
+            <td>
               {this.state.isEditMode === false &&
                 <button onClick={this.onChangeToEditMode}>Edit</button>}
             </td>
@@ -73,6 +74,8 @@ class Comment extends Component {
               <button onClick={this.delete}>Delete</button>
             </td>
           </tr>
+          <tr></tr>
+          <tr></tr>
         </table>
       </div>
     )
