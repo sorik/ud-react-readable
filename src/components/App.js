@@ -58,7 +58,7 @@ class App extends Component {
         <Route path='/edit/:id' component={EditPost}>
         </Route>
 
-        <Route path='/category/:name' component={CategoryView}>
+        <Route path='/:category' component={CategoryView}>
         </Route>
       </div>
     );

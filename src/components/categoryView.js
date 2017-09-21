@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 
 class CategoryView extends Component {
   render() {
-    const category = this.props.match.params.name
+    const { category } = this.props.match.params
     return (
       <div>
         <div>

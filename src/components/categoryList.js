@@ -18,7 +18,7 @@ class CategoryList extends Component {
           {categories.map(category => (
             <li key={category.name}>
               <Link
-                to={`/category/${category.name}`}
+                to={`/${category.name}`}
                 onClick={() => this.selectCategory(category.name)}>
               {category.name}
               </Link>
