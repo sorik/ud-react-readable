@@ -125,9 +125,9 @@ function mapStateToProp(state, props) {
 
       return isCommentsCached ? { post, comments } : { post }
     }
-  } else {
-    return { post: {} }
   }
+
+  return { post: {} }
 }
 
 function mapDispatchToProps(dispatch) {
