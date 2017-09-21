@@ -7,6 +7,7 @@ import PostList from './postList'
 import Post from './post'
 import EditPost from './editPost'
 import CategoryList from './categoryList'
+import CategoryView from './categoryView'
 import { fetchPosts, fetchCategories as fetchCategoriesAction } from '../actions'
 
 class App extends Component {
@@ -36,7 +37,7 @@ class App extends Component {
             </div>
 
             <div>
-              <PostList />
+              <PostList category='all'/>
             </div>
 
             <div>
@@ -57,6 +58,8 @@ class App extends Component {
         <Route path='/edit/:id' component={EditPost}>
         </Route>
 
+        <Route path='/category/:name' component={CategoryView}>
+        </Route>
       </div>
     );
   }

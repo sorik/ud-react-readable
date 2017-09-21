@@ -1,15 +1,14 @@
 import { combineReducers } from 'redux'
 import { FETCH_POSTS, ADD_POST, UPDATE_POST, REMOVE_POST } from '../actions'
 import { FETCH_COMMENTS, ADD_COMMENT, REMOVE_COMMENT, ALTER_COMMENT } from '../actions'
-import { FETCH_CATEGORIES, SELECT_CATEGORY } from '../actions'
+import { FETCH_CATEGORIES } from '../actions'
 
 const initialCategory = {
-  categories: [{ name: "all", path: "all" }],
-  selectedCategory: 'all'
+  categories: []
 }
 
 function category(state=initialCategory, action) {
-  const { categories, selected } = action
+  const { categories } = action
 
   switch(action.type) {
     case FETCH_CATEGORIES:
@@ -18,11 +17,6 @@ function category(state=initialCategory, action) {
         categories: state.categories.concat(categories)
       }
 
-    case SELECT_CATEGORY:
-      return {
-        ...state,
-        selectedCategory: selected
-      }
     default:
       return state
   }

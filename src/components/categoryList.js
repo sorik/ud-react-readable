@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { selectCategory } from '../actions'
+import { Link } from 'react-router-dom'
 
 class CategoryList extends Component {
 
@@ -9,22 +9,23 @@ class CategoryList extends Component {
   }
 
   render() {
-    const { categories, selectedCategory } = this.props
+    const { categories } = this.props
     return (
       <div>
         <h2>Categories</h2>
-        <form>
+        <div>
+          <ul>
           {categories.map(category => (
-            <div key={category.name}>
-             <input
-              type='radio'
-              key={category.name}
-              checked={selectedCategory === category.name}
-              name={category.name} onChange={() => this.selectCategory(category.name)}/>
+            <li key={category.name}>
+              <Link
+                to={`/category/${category.name}`}
+                onClick={() => this.selectCategory(category.name)}>
               {category.name}
-            </div>
+              </Link>
+            </li>
           ))}
-        </form>
+          </ul>
+        </div>
       </div>
     )
   }
@@ -34,10 +35,4 @@ function mapStateToProp(state) {
   return state.category
 }
 
-function mapDispatchToProp(dispatch) {
-  return {
-    selectCategory: (data) => dispatch(selectCategory(data))
-  }
-}
-
-export default connect(mapStateToProp, mapDispatchToProp)(CategoryList)
+export default connect(mapStateToProp)(CategoryList)
