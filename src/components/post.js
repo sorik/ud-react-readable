@@ -112,9 +112,9 @@ class Post extends Component {
 
 function mapStateToProp(state, props) {
   if (state.posts) {
-    const postId = props.match.params.id
+    const postId = props.match.params.post_id
     const posts =  state.posts.filter(post => post.id === postId)
-    
+
     if (posts.length > 0) {
       let post = posts[0]
       let isCommentsCached = state.commentsCache.filter(c => c === post.id).length > 0 ? true : false

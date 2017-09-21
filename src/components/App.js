@@ -40,6 +40,7 @@ class App extends Component {
               <PostList category='all'/>
             </div>
 
+            <br/><br/>
             <div>
               <Link to='/create'>Create a post</Link>
             </div>
@@ -47,18 +48,16 @@ class App extends Component {
         )}>
         </Route>
 
-        <Route exact path='/create' render={() => (
-          <div><CreatePost /></div>
-        )}>
+        <Route exact path='/create' component={CreatePost}>
         </Route>
 
-        <Route path='/posts/:id' component={Post}>
+        <Route exact path='/:category/:post_id' component={Post}>
         </Route>
 
-        <Route path='/edit/:id' component={EditPost}>
+        <Route exact path='/edit/:id' component={EditPost}>
         </Route>
 
-        <Route path='/:category' component={CategoryView}>
+        <Route exact path='/:category' component={CategoryView}>
         </Route>
       </div>
     );

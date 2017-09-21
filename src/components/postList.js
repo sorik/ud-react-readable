@@ -29,7 +29,7 @@ class PostList extends Component {
           <lu>
             {sortedPosts.map(post => (
               <div key={post.id}>
-                <Link to={'/posts/' + post.id}>
+                <Link to={`/${post.category}/${post.id}`}>
                   {post.title} *** score: {post.voteScore}
                 </Link>
               </div>
