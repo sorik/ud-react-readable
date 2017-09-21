@@ -40,7 +40,7 @@ class Post extends Component {
   }
 
   render() {
-    const { id, title, author, timestamp, body, voteScore, deleted } = this.props.post
+    const { id, title, author, timestamp, body, voteScore, deleted, category } = this.props.post
     const { comments } = this.props
     const timeString = formatTimestamp(timestamp)
 
@@ -72,7 +72,7 @@ class Post extends Component {
                   <br/><br/>
                   <div>
                     <div>
-                      <Link to={'/edit/' + id}>Edit</Link>
+                      <Link to={`/${category}/${id}/edit`}>Edit</Link>
                     </div>
                   </div>
                   <div>

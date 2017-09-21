@@ -54,7 +54,7 @@ class App extends Component {
         <Route exact path='/:category/:post_id' component={Post}>
         </Route>
 
-        <Route exact path='/edit/:id' component={EditPost}>
+        <Route exact path='/:category/:post_id/edit' component={EditPost}>
         </Route>
 
         <Route exact path='/:category' component={CategoryView}>

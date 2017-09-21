@@ -28,6 +28,8 @@ class EditPost extends Component {
   }
 
   render() {
+    const { id, category } = this.props.post
+
     return (
       <div>
         {this.state.isSucceed !== true && (
@@ -53,7 +55,7 @@ class EditPost extends Component {
         {this.state.isSucceed && (
           <div>
             <div>Successfully editted</div>
-            <Link to={'/posts/' + this.state.id}>Go back</Link>
+            <Link to={`/${category}/${id}`}>Go back</Link>
           </div>
         )}
       </div>
@@ -63,7 +65,7 @@ class EditPost extends Component {
 
 function mapStateToProp(state, props) {
   if (state.posts) {
-    const postId = props.match.params.id
+    const postId = props.match.params.post_id
     const posts =  state.posts.filter(post => post.id === postId)
 
     return posts.length > 0 ? { post: posts[0] } : { post: {} }
