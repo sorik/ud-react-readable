@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { Link } from 'react-router-dom'
 import { createPost } from '../utils/api'
 import { connect } from 'react-redux'
 import { addPost } from '../actions'
@@ -9,7 +8,6 @@ class CreatePost extends Component {
     author: '',
     title: '',
     body: '',
-    isSucceed: false
   }
 
   create = (e) => {
@@ -24,9 +22,10 @@ class CreatePost extends Component {
     .then(res => {
       if (res.id) {
         this.props.createdPost({ post: res })
-        this.setState({ isSucceed: true})
       }
     })
+
+    this.props.history.goBack()
   }
 
   render() {
@@ -34,7 +33,6 @@ class CreatePost extends Component {
 
     return (
       <div>
-      {this.state.isSucceed !== true && (
         <div>
           <form onSubmit={this.create}>
             <label>Author
@@ -71,14 +69,6 @@ class CreatePost extends Component {
             </p>
           </form>
         </div>
-      )}
-      {this.state.isSucceed && (
-        <div>
-          <div>Successfully created</div>
-          <Link to='/'>Go back</Link>
-        </div>
-      )}
-
       </div>
     )
   }
