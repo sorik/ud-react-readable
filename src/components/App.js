@@ -64,8 +64,8 @@ class App extends Component {
   }
 }
 
-function mapStateToProp(state) {
-  return state.posts ? state : { posts: [] }
+function mapStateToProp({ posts }) {
+  return posts
 }
 
 function mapDispatchToProps(dispatch) {
