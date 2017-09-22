@@ -10,7 +10,7 @@ class CategoryView extends Component {
 
     return (
       <div>
-        {categories.indexOf(category) > 0 && (
+        {categories.map(c => c.name).indexOf(category) >= 0 && (
           <div>
             <div>
               <h1>{category}</h1>
