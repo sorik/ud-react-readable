@@ -29,7 +29,7 @@ class CategoryView extends Component {
   }
 }
 
-function mapStateToProp(state) {
-  return state.category
+function mapStateToProp({ category }) {
+  return category
 }
 export default connect(mapStateToProp)(CategoryView)

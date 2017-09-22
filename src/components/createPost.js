@@ -74,8 +74,8 @@ class CreatePost extends Component {
   }
 }
 
-function mapStateToProp(state) {
-  return { categories: state.category.categories }
+function mapStateToProp({ category }) {
+  return { categories: category.categories }
 }
 
 function mapDispatchToProps(dispatch) {

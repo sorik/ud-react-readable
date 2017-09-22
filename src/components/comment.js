@@ -79,10 +79,6 @@ class Comment extends Component {
   }
 }
 
-function mapStateToProp(state) {
-  return state
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     removeComment: (data) => dispatch(removeComment(data)),
@@ -90,4 +86,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProp, mapDispatchToProps)(Comment)
+export default connect(null, mapDispatchToProps)(Comment)

@@ -64,10 +64,6 @@ class App extends Component {
   }
 }
 
-function mapStateToProp({ posts }) {
-  return posts
-}
-
 function mapDispatchToProps(dispatch) {
   return {
     fetchCategories: (data) => dispatch(fetchCategoriesAction(data)),
@@ -75,4 +71,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProp, mapDispatchToProps, null, {pure: false})(App);
+export default connect(null, mapDispatchToProps, null, {pure: false})(App);

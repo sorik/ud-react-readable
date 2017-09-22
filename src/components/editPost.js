@@ -63,15 +63,15 @@ class EditPost extends Component {
   }
 }
 
-function mapStateToProp(state, props) {
-  if (state.posts) {
+function mapStateToProp({ posts }, props) {
+  if (posts) {
     const postId = props.match.params.post_id
-    const posts =  state.posts.filter(post => post.id === postId)
+    const filteredPosts =  posts.filter(post => post.id === postId)
 
-    return posts.length > 0 ? { post: posts[0] } : { post: {} }
-  } else {
-    return { post: {} }
+    return posts.length > 0 ? { post: filteredPosts[0] } : { post: {} }
   }
+
+  return { post: {} }
 }
 
 function mapDispatchToProps(dispatch) {

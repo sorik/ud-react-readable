@@ -39,14 +39,10 @@ class Voting extends Component {
   }
 }
 
-function mapStateToProp(state) {
-  return state
-}
-
 function mapDispatchToProp(dispatch) {
   return {
     updatePost: (data) => dispatch(updatePost(data)),
     updateComment: (data) => dispatch(alterComment(data))
   }
 }
-export default connect(mapStateToProp, mapDispatchToProp)(Voting)
+export default connect(null, mapDispatchToProp)(Voting)
