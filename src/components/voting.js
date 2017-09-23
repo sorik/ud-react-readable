@@ -14,7 +14,7 @@ class Voting extends Component {
   }
 
   vote = (votingType) => {
-    const { type, id, updatePost, updateComment } = this.props
+    const { type, id, updatePost, alterComment } = this.props
 
     if (type === 'post') {
       voteToPost(id, votingType)
@@ -24,7 +24,7 @@ class Voting extends Component {
     } else if (type === 'comment') {
       voteToComment(id, votingType)
         .then(res => {
-          updateComment({ postId: this.props.postId, comment: res })
+          alterComment({ postId: this.props.postId, comment: res })
         })
     }
   }
@@ -39,10 +39,4 @@ class Voting extends Component {
   }
 }
 
-function mapDispatchToProp(dispatch) {
-  return {
-    updatePost: (data) => dispatch(updatePost(data)),
-    updateComment: (data) => dispatch(alterComment(data))
-  }
-}
-export default connect(null, mapDispatchToProp)(Voting)
+export default connect(null, { updatePost, alterComment })(Voting)

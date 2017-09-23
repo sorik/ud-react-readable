@@ -8,19 +8,19 @@ import Post from './post'
 import EditPost from './editPost'
 import CategoryList from './categoryList'
 import CategoryView from './categoryView'
-import { fetchPosts, fetchCategories as fetchCategoriesAction } from '../actions'
+import { fetchPosts, fetchCategories as fetchCategoriesAction} from '../actions'
 
 class App extends Component {
 
   componentDidMount () {
     fetchCategories()
       .then(categories => {
-        this.props.fetchCategories({ categories })
+        this.props.fetchCategoriesAction({ categories })
       })
 
     fetchAllPosts()
       .then(posts => {
-        this.props.fetchedPosts({ posts })
+        this.props.fetchPosts({ posts })
       })
   }
 
@@ -64,11 +64,4 @@ class App extends Component {
   }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    fetchCategories: (data) => dispatch(fetchCategoriesAction(data)),
-    fetchedPosts: (data) => dispatch(fetchPosts(data))
-  }
-}
-
-export default connect(null, mapDispatchToProps, null, {pure: false})(App);
+export default connect(null, { fetchPosts, fetchCategoriesAction }, null, {pure: false})(App);

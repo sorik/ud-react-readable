@@ -55,10 +55,4 @@ function mapStateToProp(state) {
   return state
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    addComment: (data) => dispatch(addComment(data))
-  }
-}
-
-export default connect(mapStateToProp, mapDispatchToProps)(CreateComment)
+export default connect(mapStateToProp, { addComment })(CreateComment)

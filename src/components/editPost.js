@@ -12,7 +12,7 @@ class EditPost extends Component {
 
     editPost(this.state)
     .then(res => {
-      this.props.editPost({ post: res })
+      this.props.updatePost({ post: res })
       this.props.history.goBack()
     })
   }
@@ -62,10 +62,4 @@ function mapStateToProp({ posts }, props) {
   return { post: {} }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    editPost: (post) => dispatch(updatePost(post))
-  }
-}
-
-export default connect(mapStateToProp, mapDispatchToProps)(EditPost)
+export default connect(mapStateToProp, { updatePost })(EditPost)

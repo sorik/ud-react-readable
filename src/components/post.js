@@ -14,7 +14,7 @@ class Post extends Component {
 
     deletePost(id)
     .then(res => {
-      this.props.deletePost({ id })
+      this.props.removePost({ id })
       this.props.history.goBack()
     })
   }
@@ -23,7 +23,7 @@ class Post extends Component {
     if (!this.props.comments) {
       fetchComments(id)
       .then(comments => {
-        this.props.fetchComments({
+        this.props.fetchCommentsAction({
           parentId: id,
           comments
         })
@@ -130,10 +130,4 @@ function mapStateToProp(state, props) {
   return { post: {} }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    deletePost: (id) => dispatch(removePost(id)),
-    fetchComments: (data) => dispatch(fetchCommentsAction(data))
-  }
-}
-export default connect(mapStateToProp, mapDispatchToProps)(Post)
+export default connect(mapStateToProp, { removePost, fetchCommentsAction })(Post)

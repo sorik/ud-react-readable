@@ -21,7 +21,7 @@ class CreatePost extends Component {
     })
     .then(res => {
       if (res.id) {
-        this.props.createdPost({ post: res })
+        this.props.addPost({ post: res })
       }
     })
 
@@ -78,10 +78,4 @@ function mapStateToProp({ category }) {
   return { categories: category.categories }
 }
 
-function mapDispatchToProps(dispatch) {
-  return {
-    createdPost: (data) => dispatch(addPost(data))
-  }
-}
-
-export default connect(mapStateToProp, mapDispatchToProps)(CreatePost)
+export default connect(mapStateToProp, { addPost })(CreatePost)

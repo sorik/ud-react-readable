@@ -11,8 +11,9 @@ class PostList extends Component {
   render() {
     let { posts, category } = this.props
     let filteredPosts = posts.filter(post => post.deleted === false)
+
     if (category !== 'all') {
-      filteredPosts = posts.filter((post) => { return post.category === category })
+      filteredPosts = filteredPosts.filter((post) => { return post.category === category })
     }
 
     const sortedPosts = this.state.isSortbyVoteScore ? sortByVoteScore(filteredPosts) : sortByTimestamp(filteredPosts)
