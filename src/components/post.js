@@ -10,7 +10,6 @@ import { formatTimestamp } from '../utils/helpers'
 
 class Post extends Component {
   state = {
-    isDeleted: false
   }
 
   delete = () => {
@@ -18,8 +17,8 @@ class Post extends Component {
 
     deletePost(id)
     .then(res => {
-      this.setState({ isDeleted: true })
       this.props.deletePost({ id })
+      this.props.history.goBack()
     })
   }
 
@@ -48,63 +47,55 @@ class Post extends Component {
       <div>
         {deleted !== true && (
           <div>
-            {this.state.isDeleted !== true && (
-              <div>
-                 <div className='post-detail'>
+            <div>
+               <div className='post-detail'>
+                <div>
                   <div>
-                    <div>
-                      <h2>{title}</h2>
-                    </div>
-                    <div>
-                      <h4>Author: <span>{author}</span></h4>
-                    </div>
-                    <div>
-                      <h5>wrote at: <span>{timeString}</span></h5>
-                    </div>
-                    <div>
-                      <Voting type='post' id={id} />
-                      <h5>vote score: <span>{voteScore}</span></h5>
-                    </div>
-                    <div>
-                      {body}
-                    </div>
-                  </div>
-                  <br/><br/>
-                  <div>
-                    <div>
-                      <Link to={`/${category}/${id}/edit`}>Edit</Link>
-                    </div>
+                    <h2>{title}</h2>
                   </div>
                   <div>
-                    <div>
-                      <button onClick={this.delete}>Delete</button>
-                    </div>
+                    <h4>Author: <span>{author}</span></h4>
                   </div>
                   <div>
-                    <div>
-                      <Link to='/'>Go to main</Link>
-                    </div>
+                    <h5>wrote at: <span>{timeString}</span></h5>
+                  </div>
+                  <div>
+                    <Voting type='post' id={id} />
+                    <h5>vote score: <span>{voteScore}</span></h5>
+                  </div>
+                  <div>
+                    {body}
                   </div>
                 </div>
                 <br/><br/>
-                <div className='post-comments'>
-                  <div className='create-comment'>
-                    <CreateComment postId={id} />
+                <div>
+                  <div>
+                    <Link to={`/${category}/${id}/edit`}>Edit</Link>
                   </div>
-                  <div className='comment-list'>
-                    {comments &&
-                      <CommentList
-                        comments={comments.filter(comment => comment.deleted === false)} />}
+                </div>
+                <div>
+                  <div>
+                    <button onClick={this.delete}>Delete</button>
+                  </div>
+                </div>
+                <div>
+                  <div>
+                    <Link to='/'>Go to main</Link>
                   </div>
                 </div>
               </div>
-            )}
-            {this.state.isDeleted && (
-              <div>
-                <div>Successfully deleted</div>
-                <Link to='/'>Go back</Link>
+              <br/><br/>
+              <div className='post-comments'>
+                <div className='create-comment'>
+                  <CreateComment postId={id} />
+                </div>
+                <div className='comment-list'>
+                  {comments &&
+                    <CommentList
+                      comments={comments.filter(comment => comment.deleted === false)} />}
+                </div>
               </div>
-            )}
+            </div>
           </div>
         )}
         {deleted === true && (
