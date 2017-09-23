@@ -2,11 +2,9 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { editPost } from '../utils/api'
 import { updatePost } from '../actions'
-import { Link } from 'react-router-dom'
 
 class EditPost extends Component {
   state = {
-    isSucceed: false
   }
 
   edit = (e) => {
@@ -15,7 +13,7 @@ class EditPost extends Component {
     editPost(this.state)
     .then(res => {
       this.props.editPost({ post: res })
-      this.setState({ isSucceed: true })
+      this.props.history.goBack()
     })
   }
 
@@ -28,36 +26,26 @@ class EditPost extends Component {
   }
 
   render() {
-    const { id, category } = this.props.post
-
     return (
       <div>
-        {this.state.isSucceed !== true && (
-          <div>
-            <form onSubmit={this.edit}>
-              <p>Title</p>
-              <input
-                name='title'
-                value={this.state.title}
-                onChange={e => this.setState({ title: e.target.value })}
-                type='text'/>
-              <p>Body</p>
-              <textarea
-                name='body'
-                onChange={e => this.setState({ body: e.target.value })}
-                value={this.state.body} />
-              <p>
-                <button type='submit'>Edit</button>
-              </p>
-            </form>
-          </div>
-        )}
-        {this.state.isSucceed && (
-          <div>
-            <div>Successfully editted</div>
-            <Link to={`/${category}/${id}`}>Go back</Link>
-          </div>
-        )}
+        <div>
+          <form onSubmit={this.edit}>
+            <p>Title</p>
+            <input
+              name='title'
+              value={this.state.title}
+              onChange={e => this.setState({ title: e.target.value })}
+              type='text'/>
+            <p>Body</p>
+            <textarea
+              name='body'
+              onChange={e => this.setState({ body: e.target.value })}
+              value={this.state.body} />
+            <p>
+              <button type='submit'>Edit</button>
+            </p>
+          </form>
+        </div>
       </div>
     )
   }

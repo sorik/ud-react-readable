@@ -9,9 +9,6 @@ import Voting from './voting'
 import { formatTimestamp } from '../utils/helpers'
 
 class Post extends Component {
-  state = {
-  }
-
   delete = () => {
     const { id } = this.props.post
 
