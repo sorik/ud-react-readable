@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { sortByVoteScore, sortByTimestamp } from '../utils/helpers'
 import { Link } from 'react-router-dom'
 import { connect } from 'react-redux'
+import Post from './post'
 
 class PostList extends Component {
   state = {
@@ -29,10 +30,12 @@ class PostList extends Component {
           </button>
           <lu>
             {sortedPosts.map(post => (
-              <div key={post.id}>
+              <div key={post.id} style={{"border-style": "double"}}>
                 <Link to={`/${post.category}/${post.id}`}>
-                  {post.title} *** score: {post.voteScore}
+                  {post.title}
                 </Link>
+                <Post isFullview={false} postId={post.id}/>
+                <br/><br/>
               </div>
             ))}
           </lu>

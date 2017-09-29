@@ -15,7 +15,9 @@ class Post extends Component {
     deletePost(id)
     .then(res => {
       this.props.removePost({ id })
-      this.props.history.goBack()
+      if (this.props.isFullview) {
+        this.props.history.goBack()
+      }
     })
   }
 
@@ -124,7 +126,7 @@ class Post extends Component {
 
 function mapStateToProp(state, props) {
   if (state.posts) {
-    const postId = props.match.params.post_id
+    const postId = props.match ? props.match.params.post_id : props.postId
     const posts =  state.posts.filter(post => post.id === postId)
 
     if (posts.length > 0) {
