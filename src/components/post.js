@@ -51,6 +51,9 @@ class Post extends Component {
                     {isFullview && <h2>{title}</h2>}
                   </div>
                   <div>
+                    <h4>category: {category}</h4>
+                  </div>
+                  <div>
                     <h4>Author: <span>{author}</span></h4>
                   </div>
                   <div>
