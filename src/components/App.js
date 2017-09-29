@@ -51,7 +51,9 @@ class App extends Component {
         <Route exact path='/create' component={CreatePost}>
         </Route>
 
-        <Route exact path='/:category/:post_id' component={Post}>
+        <Route exact path='/:category/:post_id' render={(props) => (
+          <Post {...props} isFullview={true} />
+        )}>
         </Route>
 
         <Route exact path='/:category/:post_id/edit' component={EditPost}>

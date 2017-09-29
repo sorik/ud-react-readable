@@ -37,7 +37,7 @@ class Post extends Component {
 
   render() {
     const { id, title, author, timestamp, body, voteScore, deleted, category } = this.props.post
-    const { comments } = this.props
+    const { comments, isFullview } = this.props
     const timeString = formatTimestamp(timestamp)
 
     return (
@@ -48,7 +48,7 @@ class Post extends Component {
                <div className='post-detail'>
                 <div>
                   <div>
-                    <h2>{title}</h2>
+                    {isFullview && <h2>{title}</h2>}
                   </div>
                   <div>
                     <h4>Author: <span>{author}</span></h4>
@@ -61,7 +61,7 @@ class Post extends Component {
                     <h5>vote score: <span>{voteScore}</span></h5>
                   </div>
                   <div>
-                    {body}
+                    {isFullview && <div>{body}</div>}
                   </div>
                 </div>
                 <br/><br/>
@@ -76,22 +76,31 @@ class Post extends Component {
                   </div>
                 </div>
                 <div>
-                  <div>
-                    <Link to='/'>Go to main</Link>
-                  </div>
+                  {isFullview &&
+                    <div>
+                      <Link to='/'>Go to main</Link>
+                    </div>
+                  }
                 </div>
               </div>
               <br/><br/>
-              <div className='post-comments'>
-                <div className='create-comment'>
-                  <CreateComment postId={id} />
+              {isFullview !== true && comments &&
+                <div>
+                  {comments.length} comments
                 </div>
-                <div className='comment-list'>
-                  {comments &&
-                    <CommentList
-                      comments={comments.filter(comment => comment.deleted === false)} />}
+              }
+              {isFullview &&
+                <div className='post-comments'>
+                  <div className='create-comment'>
+                    <CreateComment postId={id} />
+                  </div>
+                  <div className='comment-list'>
+                    {comments &&
+                      <CommentList
+                        comments={comments.filter(comment => comment.deleted === false)} />}
+                  </div>
                 </div>
-              </div>
+              }
             </div>
           </div>
         )}
