@@ -13,7 +13,7 @@ class CategoryView extends Component {
         {categories.map(c => c.name).indexOf(category) >= 0 && (
           <div>
             <div>
-              <h1>{category}</h1>
+              <h1>Category: {category}</h1>
             </div>
             <div>
               <PostList category={category}/>
