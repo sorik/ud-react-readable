@@ -35,15 +35,16 @@ class App extends Component {
             <div>
               <CategoryList />
             </div>
-
+            <div>
+              <h2>
+                <Link to='/create'>Create a post</Link>
+              </h2>
+            </div>
             <div>
               <PostList category='all'/>
             </div>
 
             <br/><br/>
-            <div>
-              <Link to='/create'>Create a post</Link>
-            </div>
           </div>
         )}>
         </Route>

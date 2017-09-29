@@ -16,7 +16,6 @@ function posts(state = [], action) {
       return filteredPosts.concat([post])
 
     case REMOVE_POST:
-      console.log(id)
       filteredPosts = state.filter(p => p.id !== id)
       var deletedPost = state.filter(p => p.id === id)[0]
       deletedPost.deleted = true;

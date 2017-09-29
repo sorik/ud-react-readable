@@ -13,15 +13,17 @@ class CategoryView extends Component {
         {categories.map(c => c.name).indexOf(category) >= 0 && (
           <div>
             <div>
+              <h2>
+                <Link to='/'>Go to main</Link>
+              </h2>
+            </div>
+            <div>
               <h1>Category: {category}</h1>
             </div>
             <div>
               <PostList category={category}/>
             </div>
             <br/><br/>
-            <div>
-              <Link to='/'>Go to main</Link>
-            </div>
           </div>
         )}
       </div>
