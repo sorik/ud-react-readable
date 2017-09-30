@@ -4,7 +4,7 @@ const HEADERS = {
   'Content-Type': 'application/json'
 }
 
-export function fetchCategories() {
+export function fetchAllCategories() {
   return fetch(
       `http://localhost:3001/categories`,
       { headers: HEADERS }

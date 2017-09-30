@@ -1,24 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link, Route } from 'react-router-dom'
-import { fetchCategories } from '../utils/api'
 import CreatePost from './createPost'
 import PostList from './postList'
 import Post from './post'
 import EditPost from './editPost'
 import CategoryList from './categoryList'
 import CategoryView from './categoryView'
-import { fetchCategories as fetchCategoriesAction} from '../actions'
 
 class App extends Component {
-
-  componentDidMount () {
-    fetchCategories()
-      .then(categories => {
-        this.props.fetchCategoriesAction({ categories })
-      })
-  }
-
   render() {
     return (
       <div>
@@ -62,4 +52,4 @@ class App extends Component {
   }
 }
 
-export default connect(null, { fetchCategoriesAction }, null, {pure: false})(App);
+export default connect(null, null, null, {pure: false})(App);

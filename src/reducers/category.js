@@ -1,17 +1,20 @@
-import { FETCH_CATEGORIES } from '../actions'
+import { REQUEST_CATEGORIES, RECEIVE_CATEGORIES } from '../actions'
 
-const initialCategory = {
-  categories: []
-}
-
-function category(state=initialCategory, action) {
+function category(state={}, action) {
   const { categories } = action
 
   switch(action.type) {
-    case FETCH_CATEGORIES:
+    case REQUEST_CATEGORIES:
       return {
         ...state,
-        categories: state.categories.concat(categories)
+        isFetching: true
+      }
+
+    case RECEIVE_CATEGORIES:
+      return {
+        ...state,
+        isFetching: false,
+        categories,
       }
 
     default:

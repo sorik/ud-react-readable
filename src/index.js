@@ -8,7 +8,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import reducer from './reducers'
 import { Provider } from 'react-redux'
 import thunkMiddleware from 'redux-thunk'
-import { fetchPostsIfNeeded } from './actions'
+import { fetchPostsIfNeeded, fetchCategoriesIfNeeded } from './actions'
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
 
@@ -23,6 +23,10 @@ const store = createStore(
 
 store
   .dispatch(fetchPostsIfNeeded())
+  .then(() => console.log(store.getState()))
+
+store
+  .dispatch(fetchCategoriesIfNeeded())
   .then(() => console.log(store.getState()))
 
 ReactDOM.render(

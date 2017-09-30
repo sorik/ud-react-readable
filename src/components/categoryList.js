@@ -32,7 +32,9 @@ class CategoryList extends Component {
 }
 
 function mapStateToProp({ category }) {
-  return category
+  const { categories } = category
+
+  return categories ? { categories } : { categories: [] }
 }
 
 export default connect(mapStateToProp)(CategoryList)
