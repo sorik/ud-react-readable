@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux'
 import { Link, Route } from 'react-router-dom'
-import { fetchCategories, fetchAllPosts } from '../utils/api'
+import { fetchCategories } from '../utils/api'
 import CreatePost from './createPost'
 import PostList from './postList'
 import Post from './post'
 import EditPost from './editPost'
 import CategoryList from './categoryList'
 import CategoryView from './categoryView'
-import { fetchPosts, fetchCategories as fetchCategoriesAction} from '../actions'
+import { fetchCategories as fetchCategoriesAction} from '../actions'
 
 class App extends Component {
 
@@ -16,11 +16,6 @@ class App extends Component {
     fetchCategories()
       .then(categories => {
         this.props.fetchCategoriesAction({ categories })
-      })
-
-    fetchAllPosts()
-      .then(posts => {
-        this.props.fetchPosts({ posts })
       })
   }
 
@@ -67,4 +62,4 @@ class App extends Component {
   }
 }
 
-export default connect(null, { fetchPosts, fetchCategoriesAction }, null, {pure: false})(App);
+export default connect(null, { fetchCategoriesAction }, null, {pure: false})(App);

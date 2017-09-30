@@ -1,29 +1,43 @@
-import { FETCH_POSTS, ADD_POST, UPDATE_POST, REMOVE_POST } from '../actions'
+import { REQUEST_POSTS, RECEIVE_POSTS, ADD_POST, UPDATE_POST, REMOVE_POST } from '../actions'
 
-function posts(state = [], action) {
+function posts(state = {}, action) {
   const { posts, post, id } = action
 
   switch(action.type) {
-    case FETCH_POSTS:
-      return posts
+    case REQUEST_POSTS:
+      return {
+        ...state,
+        isFetching: true
+      }
+
+    case RECEIVE_POSTS:
+      return {
+        ...state,
+        isFetching: false,
+        items: posts,
+      }
 
     case ADD_POST:
-      return state.concat([post])
+      return {
+        ...state,
+        items: state.items.concat([post])
+      }
 
     case UPDATE_POST:
-      return state.map(p => {
-        if(p.id !== post.id) {
-          return p
-        }
-        return post
-      })
+      return {
+        ...state,
+        items: state.items.map(p => (p.id !== post.id ? p : post))
+      }
 
     case REMOVE_POST:
-      var filteredPosts = state.filter(p => p.id !== id)
-      var deletedPost = state.filter(p => p.id === id)[0]
+      var filteredPosts = state.items.filter(p => p.id !== id)
+      var deletedPost = state.items.filter(p => p.id === id)[0]
       deletedPost.deleted = true;
 
-      return filteredPosts.concat([deletedPost])
+      return {
+        ...state,
+        items: filteredPosts.concat([deletedPost])
+      }
 
     default:
       return state
