@@ -11,12 +11,15 @@ function posts(state = [], action) {
       return state.concat([post])
 
     case UPDATE_POST:
-      var filteredPosts = state.filter(p => p.id !== post.id)
-
-      return filteredPosts.concat([post])
+      return state.map(p => {
+        if(p.id !== post.id) {
+          return p
+        }
+        return post
+      })
 
     case REMOVE_POST:
-      filteredPosts = state.filter(p => p.id !== id)
+      var filteredPosts = state.filter(p => p.id !== id)
       var deletedPost = state.filter(p => p.id === id)[0]
       deletedPost.deleted = true;
 
