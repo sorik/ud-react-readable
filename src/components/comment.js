@@ -12,11 +12,11 @@ class Comment extends Component {
   }
 
   delete = () => {
-    const { id } = this.props.comment
+    const comment = this.props.comment
 
-    deleteComment(id)
+    deleteComment(comment.id)
       .then(res => {
-        this.props.removeComment({ commentId: id })
+        this.props.removeComment({ comment })
       })
   }
 

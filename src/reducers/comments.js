@@ -1,7 +1,7 @@
 import { FETCH_COMMENTS, ADD_COMMENT, REMOVE_COMMENT, ALTER_COMMENT } from '../actions'
 
 function comments(state = [], action) {
-  const { comments, comment, commentId } = action
+  const { comments, comment } = action
 
   switch(action.type) {
     case FETCH_COMMENTS:
@@ -11,7 +11,8 @@ function comments(state = [], action) {
       return state.concat([comment])
 
     case REMOVE_COMMENT:
-      return state.filter(c => c.id !== commentId)
+      comment.deleted = true
+      return state.filter(c => c.id !== comment.id).concat([comment])
 
     case ALTER_COMMENT:
       return state.filter(c => c.id !== comment.id).concat([comment])

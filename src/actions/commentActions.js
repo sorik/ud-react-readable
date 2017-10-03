@@ -15,10 +15,10 @@ export function addComment({ postId, comment }) {
   }
 }
 
-export function removeComment({ postId, commentId }) {
+export function removeComment({ postId, comment }) {
   return {
     type: REMOVE_COMMENT,
-    commentId
+    comment
   }
 }
 
