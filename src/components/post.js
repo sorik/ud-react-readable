@@ -134,7 +134,7 @@ function mapStateToProp(state, props) {
     let isCommentsCached = state.commentsCache.filter(c => c === post.id).length > 0 ? true : false
 
     if (isCommentsCached) {
-      var comments = state.comments.filter(comment => comment.parentId === post.id)
+      var comments = Object.values(state.comments).filter(comment => comment.parentId === post.id)
     }
 
     return isCommentsCached ? { post, comments } : { post }
