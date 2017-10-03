@@ -48,7 +48,7 @@ class PostList extends Component {
 function mapStateToProp({ posts }, { category }) {
   const items = posts.items
   return {
-    posts: items ? items : [],
+    posts: items ? Object.values(items) : [],
     category
   }
 }

@@ -11,32 +11,47 @@ function posts(state = {}, action) {
       }
 
     case RECEIVE_POSTS:
+      const normalisedPosts = posts.reduce((normalised, post) => {
+        return {
+          ...normalised,
+          [post.id]: post
+        }
+      }, {})
+
       return {
         ...state,
         isFetching: false,
-        items: posts,
+        items: normalisedPosts,
       }
 
     case ADD_POST:
       return {
         ...state,
-        items: state.items.concat([post])
+        items: {
+          ...state.items,
+          [post.id]: post
+        }
       }
 
     case UPDATE_POST:
       return {
         ...state,
-        items: state.items.map(p => (p.id !== post.id ? p : post))
+        items: {
+          ...state.items,
+          [post.id]: post
+        }
       }
 
     case REMOVE_POST:
-      var filteredPosts = state.items.filter(p => p.id !== id)
-      var deletedPost = state.items.filter(p => p.id === id)[0]
+      let deletedPost = state.items[id]
       deletedPost.deleted = true;
 
       return {
         ...state,
-        items: filteredPosts.concat([deletedPost])
+        items: {
+          ...state.items,
+          [id]: deletedPost
+        }
       }
 
     default:

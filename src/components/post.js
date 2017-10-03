@@ -129,18 +129,15 @@ function mapStateToProp(state, props) {
 
   if (posts) {
     const postId = props.match ? props.match.params.post_id : props.postId
-    const matchedPosts = posts.filter(post => post.id === postId)
+    const post = posts[postId]
 
-    if (matchedPosts.length > 0) {
-      let post = matchedPosts[0]
-      let isCommentsCached = state.commentsCache.filter(c => c === post.id).length > 0 ? true : false
+    let isCommentsCached = state.commentsCache.filter(c => c === post.id).length > 0 ? true : false
 
-      if (isCommentsCached) {
-        var comments = state.comments.filter(comment => comment.parentId === post.id)
-      }
-
-      return isCommentsCached ? { post, comments } : { post }
+    if (isCommentsCached) {
+      var comments = state.comments.filter(comment => comment.parentId === post.id)
     }
+
+    return isCommentsCached ? { post, comments } : { post }
   }
 
   return { post: {} }

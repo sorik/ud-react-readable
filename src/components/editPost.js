@@ -54,9 +54,7 @@ class EditPost extends Component {
 function mapStateToProp({ posts }, props) {
   if (posts.items) {
     const postId = props.match.params.post_id
-    const filteredPosts =  posts.items.filter(post => post.id === postId)
-
-    return filteredPosts.length > 0 ? { post: filteredPosts[0] } : { post: {} }
+    return { post: posts.items[postId] }
   }
 
   return { post: {} }
